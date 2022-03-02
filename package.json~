@@ -17,11 +17,5 @@
   },
   "devDependencies": {
     "@kmamal/testing": "^0.0.11"
-  },
-  "exports": {
-    "./channel": "./src/channel.js",
-    "./parallel": "./src/parallel.js",
-    "./pool": "./src/pool.js",
-    "./worker": "./src/worker.js"
   }
 }
