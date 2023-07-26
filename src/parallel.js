@@ -1,4 +1,4 @@
-const Pool = require('./pool')
+const { Pool } = require('./pool')
 const Stream = require('stream')
 const Os = require('os')
 
@@ -18,11 +18,11 @@ const parallel = (input, options) => {
 
 	const poolPromise = userPool
 		? Promise.resolve(userPool)
-		: Pool.open(concurrency, path)
+		: new Pool().open(concurrency, path)
 
 	poolPromise.then((pool) => {
 		const cleanup = () => {
-			if (!userPool) { Pool.close(pool) }
+			if (!userPool) { pool.close() }
 		}
 
 		let count = 0
@@ -41,7 +41,8 @@ const parallel = (input, options) => {
 
 				try {
 					const [ name, ...args ] = request
-					response.result = await pool[name](...args)
+					const methods = pool.methods()
+					response.result = await methods[name](...args)
 				} catch (error) {
 					response.error = error
 				}
@@ -50,6 +51,12 @@ const parallel = (input, options) => {
 				if (count-- === concurrency) { input.resume() }
 
 				if (count === 0 && input.readableEnded) {
+					output.end()
+					cleanup()
+				}
+			})
+			.on('end', () => {
+				if (count === 0) {
 					output.end()
 					cleanup()
 				}

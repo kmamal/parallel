@@ -1,21 +1,27 @@
 {
-  "version": "0.0.0",
+  "version": "0.0.1",
   "name": "@kmamal/parallel",
   "description": "parallel",
   "repository": {
     "type": "git",
     "url": "git@github.com:kmamal/parallel.git"
   },
-  "main": "src/index.js",
   "license": "MIT",
   "scripts": {
     "test": "./scripts/run-tests.sh",
-    "update-exports": "./scripts/update-exports.sh"
+    "update-exports": "node ./scripts/update-exports.mjs"
   },
   "dependencies": {
     "@kmamal/util": "^0.0.83"
   },
   "devDependencies": {
     "@kmamal/testing": "^0.0.11"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./channel": "./src/channel.js",
+    "./parallel": "./src/parallel.js",
+    "./pool": "./src/pool.js",
+    "./worker": "./src/worker.js"
   }
 }

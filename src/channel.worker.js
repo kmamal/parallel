@@ -1,10 +1,14 @@
-const { parentPort, workerData } = require('worker_threads')
+const { parentPort, workerData: path } = require('worker_threads')
 
-const context = require(workerData)
+const sendError = (error) => { parentPort.postMessage({ error }) }
+process.on('uncaughtException', sendError)
+process.on('uncaughtRejection', sendError)
+
+const imported = require(path)
 
 const table = []
 const initMessage = []
-for (const [ name, func ] of Object.entries(context)) {
+for (const [ name, func ] of Object.entries(imported)) {
 	table.push(func)
 	initMessage.push(name)
 }
