@@ -1,4 +1,4 @@
-const { parallel } = require('../parallel')
+const { parallel } = require('..')
 const Stream = require('stream')
 const Path = require('path')
 
