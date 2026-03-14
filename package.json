@@ -12,10 +12,10 @@
     "update-exports": "node ./scripts/update-exports.mjs"
   },
   "exports": {
-    "./channel": "./src/channel.js",
+    "./pool": "./src/pool.js",
+    "./stream": "./src/stream.js",
     "./channel.worker": "./src/channel.worker.js",
-    ".": "./src/index.js",
-    "./pool": "./src/pool.js"
+    "./channel": "./src/channel.js"
   },
   "dependencies": {
     "@kmamal/async": "0.0.17",
