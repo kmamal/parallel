@@ -18,8 +18,7 @@
     "./channel": "./src/channel.js"
   },
   "dependencies": {
-    "@kmamal/async": "0.0.17",
-    "@kmamal/util": "0.2.29"
+    "@kmamal/async": "0.0.17"
   },
   "devDependencies": {
     "@kmamal/testing": "0.0.33"
