@@ -16,12 +16,14 @@ class Channel extends EventEmitter {
 	}
 
 	state () { return this._opener.state() }
+	stateTransitionFinished () { return this._opener.stateTransitionFinished() }
+
 	methods () { return { ...this._methods } }
 
 	async open (path) {
 		return await this._opener.open(async () => {
 			this._worker = new Worker(workerPath, { workerData: path })
-			const table = await once(this._worker, 'message')
+			const [ table ] = await once(this._worker, 'message')
 			const pending = new Map()
 
 			let _nextId = 0

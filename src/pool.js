@@ -10,6 +10,8 @@ class Pool {
 	}
 
 	state () { return this._opener.state() }
+	stateTransitionFinished () { return this._opener.stateTransitionFinished() }
+
 	channels () { return [ ...this._channels ] }
 	methods () { return { ...this._methods } }
 
