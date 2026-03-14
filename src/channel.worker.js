@@ -1,8 +1,8 @@
-const { parentPort, workerData: path } = require('worker_threads')
+const { parentPort, workerData: path } = require('node:worker_threads')
 
 const sendError = (error) => { parentPort.postMessage({ error }) }
 process.on('uncaughtException', sendError)
-process.on('uncaughtRejection', sendError)
+process.on('unhandledRejection', sendError)
 
 const imported = require(path)
 
@@ -17,10 +17,7 @@ parentPort.postMessage(initMessage)
 parentPort.on('message', async ({ id, index, args }) => {
 	let error = null
 	let result = null
-	try {
-		result = await table[index](...args)
-	} catch (_error) {
-		error = _error
-	}
+	try { result = await table[index](...args) }
+	catch (_error) { error = _error }
 	parentPort.postMessage({ id, error, result })
 })

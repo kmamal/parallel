@@ -1,11 +1,9 @@
 import Fs from 'node:fs/promises'
 import Path from 'node:path'
-import { fileURLToPath } from 'url'
 
-const rootDir = Path.resolve(Path.dirname(fileURLToPath(import.meta.url)), '..')
+const rootDir = Path.resolve(import.meta.dirname, '..')
 process.chdir(rootDir)
 
-await Fs.copyFile('package.json', 'package.json~')
 const pkg = JSON.parse(await Fs.readFile('package.json', 'utf8'))
 
 pkg.exports = {}

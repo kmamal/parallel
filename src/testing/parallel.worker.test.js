@@ -1,5 +1,8 @@
+const { setTimeout } = require('node:timers/promises')
 
-const run = () => {
+const sleep = async (timeout) => {
+	await setTimeout(timeout)
+	return timeout
 }
 
-module.exports = { run }
+module.exports = { sleep }

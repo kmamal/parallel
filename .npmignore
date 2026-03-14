@@ -2,4 +2,3 @@ scripts
 **/*.test.js
 **/testing/
 **/_*
-package.json~
