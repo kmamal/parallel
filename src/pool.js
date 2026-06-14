@@ -19,13 +19,22 @@ class Pool {
 	channels () { return [ ...this._channels ] }
 	methods () { return { ...this._methods } }
 
-	async open (path, number = this.DEFAULT_CONCURRENCY) {
+	async open (options = {}) {
+		const {
+			path,
+			count = this.DEFAULT_CONCURRENCY,
+			data,
+		} = options
+
 		return await this._opener.open(async () => {
 			this._channels = []
-			for (let i = 0; i < number; i++) {
+			for (let i = 0; i < count; i++) {
 				this._channels.push(new Channel())
 			}
-			await Promise.all(this._channels.map(async (channel) => await channel.open(path)))
+
+			await Promise.all(
+				this._channels.map(async (channel) => await channel.open(path, data)),
+			)
 
 			const channelPool = new ObjectPool()
 			let nextId = 1

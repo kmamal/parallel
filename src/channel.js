@@ -20,9 +20,9 @@ class Channel extends EventEmitter {
 
 	methods () { return { ...this._methods } }
 
-	async open (path) {
+	async open (path, data) {
 		return await this._opener.open(async () => {
-			this._worker = new Worker(workerPath, { workerData: path })
+			this._worker = new Worker(workerPath, { workerData: { path, data } })
 			const [ table ] = await once(this._worker, 'message')
 			const pending = new Map()
 

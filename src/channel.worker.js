@@ -1,4 +1,4 @@
-const { parentPort, workerData: path } = require('node:worker_threads')
+const { parentPort, workerData: { path } } = require('node:worker_threads')
 
 const sendError = (error) => { parentPort.postMessage({ error }) }
 process.on('uncaughtException', sendError)

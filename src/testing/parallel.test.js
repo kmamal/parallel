@@ -7,7 +7,10 @@ test("pool", async (t) => {
 	t.timeout(1000)
 
 	const pool = new Pool()
-	await pool.open(Path.join(__dirname, 'parallel.worker.test.js'))
+	await pool.open({
+		path: Path.join(__dirname, 'parallel.worker.test.js'),
+		count: 2,
+	})
 
 	const input = [ 200, 100 ]
 	const output = []
