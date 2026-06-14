@@ -2,7 +2,11 @@ const { Channel } = require('./channel')
 const { Opener } = require('@kmamal/async/opener')
 const { ObjectPool } = require('@kmamal/async/object-pool')
 
+const Os = require('node:os')
+
 class Pool {
+	DEFAULT_CONCURRENCY = Math.max(2, Os.cpus().length - 1)
+
 	constructor () {
 		this._opener = new Opener()
 		this._channels = null
@@ -15,7 +19,7 @@ class Pool {
 	channels () { return [ ...this._channels ] }
 	methods () { return { ...this._methods } }
 
-	async open (number, path) {
+	async open (path, number = this.DEFAULT_CONCURRENCY) {
 		return await this._opener.open(async () => {
 			this._channels = []
 			for (let i = 0; i < number; i++) {

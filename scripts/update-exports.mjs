@@ -20,7 +20,8 @@ const recurse = async (dirPath) => {
 			) { continue }
 
 			await recurse(Path.join(dirPath, entry.name))
-		} else {
+		}
+		else {
 			if (false
 				|| !entry.name.endsWith('.js')
 				|| entry.name.endsWith('.test.js')

@@ -13,7 +13,6 @@
   },
   "exports": {
     "./pool": "./src/pool.js",
-    "./stream": "./src/stream.js",
     "./channel.worker": "./src/channel.worker.js",
     "./channel": "./src/channel.js"
   },
